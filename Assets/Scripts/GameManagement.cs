@@ -25,6 +25,7 @@ public class GameManagement : MonoBehaviour
 
     public void Restart()
     {
+        SoundManager.instance.GameMusic(true);
         gameoverScene.SetActive(false);
         pauseScene.SetActive(false);
         pauseBtn.SetActive(true);
@@ -34,8 +35,18 @@ public class GameManagement : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
+    public void NewGame()
+    {
+        SoundManager.instance.MenuMusic(false);
+        SoundManager.instance.GameMusic(true);
+        Character.lastCheckPointPos = new Vector2(-11, 1);
+        Character.CoinNums = 0;
+        PlayerPrefs.SetInt("CoinsCount", Character.CoinNums);
+    }
+
     public void Replay()
     {
+        SoundManager.instance.GameMusic(true);
         gameoverScene.SetActive(false);
         pauseScene.SetActive(false);
         pauseBtn.SetActive(true);
@@ -59,6 +70,8 @@ public class GameManagement : MonoBehaviour
     //co the them gameobject giong pauseScreen de setactive trong menu scene
     public void ReturnHome()
     {
+        SoundManager.instance.GameMusic(false);
+        SoundManager.instance.MenuMusic(true);
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }

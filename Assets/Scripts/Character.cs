@@ -17,13 +17,6 @@ public class Character : MonoBehaviour
     private float jumpTime;
     [SerializeField]
     private float jumpMultiplier;
-    [SerializeField]
-    private AudioSource collectSoundEffect;
-    [SerializeField]
-    private AudioSource hurtSoundEffect;
-    [SerializeField]
-    private AudioSource deadthSoundEffect;
-    
     Vector2 vecGravity;
     private Animator anim;
     public GameObject gameObj;
@@ -32,7 +25,7 @@ public class Character : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     public TextMeshProUGUI coinsText;
-    public static Vector3 lastCheckPointPos = new Vector3(-11, 1, 0);
+    public static Vector3 lastCheckPointPos = new Vector3(-11f, 1f, 0);
     private readonly string running = "IsRunning";
     private readonly string jumping = "IsJumping";
     private readonly string groundTag = "Ground";
@@ -53,7 +46,6 @@ public class Character : MonoBehaviour
         GameObject.FindGameObjectWithTag("character").transform.position = lastCheckPointPos;
         map = SceneManager.GetActiveScene().buildIndex;
         Time.timeScale = 1;
-
         vecGravity = new Vector2(0f, -Physics2D.gravity.y);
     }
 
@@ -154,7 +146,7 @@ public class Character : MonoBehaviour
         //Mathf.Abs(mybody.velocity.y) < 0.001f this is used to get the absolute velocity value of vector y. It's the same with isGround check.
         if (Input.GetButtonDown("Jump") && isGround)
         {
-            
+            SoundManager.instance.JumpSFX();
             isGround = false;
             isJumping = true;
             jumpCounter = 0;
@@ -188,6 +180,8 @@ public class Character : MonoBehaviour
             HealthManagement.health--;
             if(HealthManagement.health <= 0)
             {
+                SoundManager.instance.GameMusic(false);
+                SoundManager.instance.DeathSFX();
                 GameManagement.isGameOver = true;
                 gameObject.SetActive(false);
             }
@@ -202,6 +196,8 @@ public class Character : MonoBehaviour
             HealthManagement.health--;
             if (HealthManagement.health <= 0)
             {
+                SoundManager.instance.GameMusic(false);
+                SoundManager.instance.DeathSFX();
                 GameManagement.isGameOver = true;
                 gameObject.SetActive(false);
             }
@@ -224,7 +220,7 @@ public class Character : MonoBehaviour
     /// <returns>the flashing effect and the character will be invisible for 3s</returns>
     IEnumerator GetHurt()
     {
-        hurtSoundEffect.Play();
+        SoundManager.instance.HitSFX();
         Physics2D.IgnoreLayerCollision(6, 7);
         GetComponent<Animator>().SetLayerWeight(1, 1);
         yield return new WaitForSeconds(3);
@@ -256,6 +252,8 @@ public class Character : MonoBehaviour
         position.y = data.position[1];
         position.z = data.position[2];
         transform.position = position;
+        SoundManager.instance.MenuMusic(false);
+        SoundManager.instance.GameMusic(true);
     }
     
     /// <summary>

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -10,9 +11,31 @@ public class MenuHandler : MonoBehaviour
     public AudioMixer audMixer;
     Resolution[] resolutions;
     public TMPro.TMP_Dropdown resolutionDropdown;
+    public Toggle fScreenToggle;
+    public Button isMuteBtn;
+    public Button loadBtn;
+
+    private void Awake()
+    {
+        string path = Application.persistentDataPath + "/character.save";
+        if (!File.Exists(path))
+        {
+            loadBtn.interactable = false;
+            loadBtn.colors = ColorBlock.defaultColorBlock;
+        }
+
+        if (Screen.fullScreen == true)
+            fScreenToggle.isOn = true;
+
+        else
+        {
+            fScreenToggle.isOn = false;
+        }
+    }
 
     private void Start()
     {
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
@@ -36,7 +59,18 @@ public class MenuHandler : MonoBehaviour
     
     public void LoadMap(int index)
     {
+        SoundManager.instance.MenuMusic(false);
+        SoundManager.instance.GameMusic(true);
         SceneManager.LoadScene(index);
+    }
+
+    public void Mute(bool isMute)
+    {
+        if (isMute)
+            AudioListener.volume = 0;
+        else
+            AudioListener.volume = 1;
+
     }
 
     public void SetVolume(float volume)
@@ -67,6 +101,22 @@ public class MenuHandler : MonoBehaviour
 
     public void SetFullScreen(bool isFScreen)
     {
-        Screen.fullScreen = isFScreen;
+        if (isFScreen)
+        {
+            Screen.fullScreen = isFScreen;
+            Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+            fScreenToggle.isOn = isFScreen;
+        }
+        else
+        {
+            Screen.fullScreen = false;
+            Screen.fullScreenMode = FullScreenMode.Windowed;
+            fScreenToggle.isOn = isFScreen;
+        }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
