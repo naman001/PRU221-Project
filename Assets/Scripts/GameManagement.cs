@@ -3,10 +3,20 @@ using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour
 {
+    public static GameManagement instance;
     public static bool isGameOver;
-    public GameObject gameoverScene;
-    public GameObject pauseScene;
-    public GameObject pauseBtn;
+    [SerializeField]
+    GameObject gameoverScene;
+    [SerializeField]
+    GameObject pauseScene;
+    [SerializeField]
+    GameObject pauseBtn;
+    [SerializeField]
+    GameObject finalScene;
+    [SerializeField]
+    GameObject mainMenu;
+    [SerializeField]
+    GameObject selectMap;
     private void Awake()
     {
         isGameOver = false;
@@ -23,11 +33,23 @@ public class GameManagement : MonoBehaviour
         }
     }
 
+    public void SelectMap()
+    {
+        SoundManager.instance.GameMusic(false);
+        SoundManager.instance.MenuMusic(true);
+        SceneManager.LoadScene(0);
+        mainMenu.SetActive(false);
+        selectMap.SetActive(true);
+    }
+
+    
+
     public void Restart()
     {
         SoundManager.instance.GameMusic(true);
         gameoverScene.SetActive(false);
         pauseScene.SetActive(false);
+        finalScene.SetActive(false);
         pauseBtn.SetActive(true);
         Character.lastCheckPointPos = new Vector2(-11, 1);
         Character.CoinNums = 0;

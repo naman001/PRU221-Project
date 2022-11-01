@@ -4,13 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 public class HealthManagement : MonoBehaviour
 {
+    public static HealthManagement instance;
     public static int health;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite empHeart;
+    [SerializeField]
+    Image[] hearts;
+    [SerializeField]
+    Sprite fullHeart;
+    [SerializeField]
+    Sprite empHeart;
     private void Awake()
     {
-        health= PlayerPrefs.GetInt("HealthCount", health);
+        health = PlayerPrefs.GetInt("HealthCount", health);
     }
     // Update is called once per frame
     void Update()
