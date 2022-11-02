@@ -10,18 +10,15 @@ public class SoundManager : MonoBehaviour
 	public static SoundManager instance;
 	[SerializeField]
 	AudioMixer mixer;
-	[SerializeField]
-	AudioSource gameSource;
-	[SerializeField]
-	AudioSource jumpSource;
-	[SerializeField]
-	AudioSource hitSource;
-	[SerializeField]
-	AudioSource coinSource;
-	[SerializeField]
-	AudioSource deathSource;
-	[SerializeField]
-	AudioSource menuSource;
+	public AudioSource gameSource;
+	public AudioSource jumpSource;
+	public AudioSource hitSource;
+	public AudioSource coinSource;
+	public AudioSource deathSource;
+	public AudioSource menuSource;
+	public AudioSource gameOverSource;
+	public AudioSource winningSource;
+	public AudioSource winningSourceLoop;
 
 	public const string masterKey = "Volume";
 	public const string musicKey = "MusicVolume";
@@ -41,6 +38,20 @@ public class SoundManager : MonoBehaviour
 		}
 		LoadSound();
 	}
+
+	public void WinningMusic()
+    {
+		winningSource.Play();
+		winningSourceLoop.PlayDelayed(winningSource.clip.length);
+    }
+
+	public void GameOverMusic(bool playMusic)
+    {
+		if (playMusic)
+			gameOverSource.Play();
+		else
+			gameOverSource.Stop();
+    }
 
 	public void MenuMusic(bool playMusic)
     {

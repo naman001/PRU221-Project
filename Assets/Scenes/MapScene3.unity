@@ -6598,6 +6598,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e544daba0ab450744bc904a70eacd8e2, type: 3}
+--- !u!114 &705838911 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 874209983, guid: 9ff64d3da9fc30e469e6d2258cc75c1b, type: 3}
+  m_PrefabInstance: {fileID: 187656716}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &706483589
 GameObject:
   m_ObjectHideFlags: 0
@@ -7976,10 +7987,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 977567997806170208, guid: eee62a04aaaccb34290884e184bdc36d, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 977567997806170209, guid: eee62a04aaaccb34290884e184bdc36d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -8032,10 +8039,6 @@ PrefabInstance:
       propertyPath: coinsText
       value: 
       objectReference: {fileID: 187656723}
-    - target: {fileID: 977567997806170210, guid: eee62a04aaaccb34290884e184bdc36d, type: 3}
-      propertyPath: xPosition
-      value: -13
-      objectReference: {fileID: 0}
     - target: {fileID: 977567997806170220, guid: eee62a04aaaccb34290884e184bdc36d, type: 3}
       propertyPath: m_Name
       value: 1x_0
@@ -10548,6 +10551,10 @@ PrefabInstance:
       propertyPath: finalScene
       value: 
       objectReference: {fileID: 251377210}
+    - target: {fileID: 9087370765157836003, guid: f07781254b4cabd459d68179cdf5b0ef, type: 3}
+      propertyPath: muteButton
+      value: 
+      objectReference: {fileID: 705838911}
     - target: {fileID: 9087370765157836003, guid: f07781254b4cabd459d68179cdf5b0ef, type: 3}
       propertyPath: pauseScene
       value: 

@@ -7,7 +7,6 @@ public class LastPoint : MonoBehaviour
     [SerializeField]
     GameObject finalScene;
     GameObject character;
-    private Rigidbody2D body;
     private Animator anim;
     private readonly string isOpening = "isOpening";
     private float delayTime = 1f;
@@ -31,6 +30,8 @@ public class LastPoint : MonoBehaviour
 
     public void CompleteMap()
     {
+        SoundManager.instance.GameMusic(false);
+        SoundManager.instance.WinningMusic();
         finalScene.SetActive(true);
     }
 }

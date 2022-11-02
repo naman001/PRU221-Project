@@ -19,6 +19,7 @@ public class Character : MonoBehaviour
     private float jumpMultiplier;
     Vector2 vecGravity;
     private Animator anim;
+    public ParticleSystem dust;
     public GameObject gameObj;
     private SpriteRenderer sr;
     private Rigidbody2D mybody;
@@ -59,8 +60,8 @@ public class Character : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         CharacterMovementKeyBoard();
-        AnimateCharacter();
         Jump();
+        AnimateCharacter();
     }
 
     /// <summary>
@@ -146,20 +147,21 @@ public class Character : MonoBehaviour
         //Mathf.Abs(mybody.velocity.y) < 0.001f this is used to get the absolute velocity value of vector y. It's the same with isGround check.
         if (Input.GetButtonDown("Jump") && isGround)
         {
+            mybody.velocity = new Vector2(mybody.velocity.x, jumpForce);
+            CreateDustEffect();
             SoundManager.instance.JumpSFX();
             isGround = false;
             isJumping = true;
             jumpCounter = 0;
-            mybody.velocity = new Vector2(mybody.velocity.x, jumpForce);
         }
         if (Input.GetButtonUp("Jump"))
         {
             isJumping = false;
         }
-        if(mybody.velocity.y > 0 && isJumping)
+        if (mybody.velocity.y > 0 && isJumping)
         {
             jumpCounter += Time.deltaTime;
-            if (jumpCounter > jumpTime) 
+            if (jumpCounter > jumpTime)
                 isJumping = false;
             mybody.velocity += vecGravity * jumpMultiplier * Time.deltaTime;
         }
@@ -182,7 +184,7 @@ public class Character : MonoBehaviour
             {
                 SoundManager.instance.GameMusic(false);
                 SoundManager.instance.DeathSFX();
-                GameManagement.isGameOver = true;
+                Invoke("GameOver", 1f);
                 gameObject.SetActive(false);
             }
             else
@@ -198,7 +200,7 @@ public class Character : MonoBehaviour
             {
                 SoundManager.instance.GameMusic(false);
                 SoundManager.instance.DeathSFX();
-                GameManagement.isGameOver = true;
+                Invoke("GameOver", 1f);
                 gameObject.SetActive(false);
             }
             else
@@ -226,6 +228,14 @@ public class Character : MonoBehaviour
         yield return new WaitForSeconds(3);
         GetComponent<Animator>().SetLayerWeight(1, 0);
         Physics2D.IgnoreLayerCollision(6, 7, false);
+    }
+
+    /// <summary>
+    /// This method is used to create dust effect when character is jumping
+    /// </summary>
+    private void CreateDustEffect()
+    {
+        dust.Play();
     }
     
     /// <summary>
@@ -266,5 +276,11 @@ public class Character : MonoBehaviour
         PlayerPrefs.SetInt("CoinsCount", CoinNums);
         PlayerPrefs.SetInt("HealthCount", health);
         transform.position = new Vector3(-11, 1, 0);
+    }
+
+    public void GameOver()
+    {
+        SoundManager.instance.GameOverMusic(true);
+        GameManagement.isGameOver = true;
     }
 }

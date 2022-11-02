@@ -49,6 +49,11 @@ MonoBehaviour:
   pauseScene: {fileID: 0}
   pauseBtn: {fileID: 0}
   finalScene: {fileID: 0}
+  mainMenu: {fileID: 0}
+  selectMap: {fileID: 0}
+  soundOnImg: {fileID: -1365189866, guid: 2676ff5c94fc9f1489d59bf570d079e3, type: 3}
+  soundOffImg: {fileID: -1113293953, guid: 2676ff5c94fc9f1489d59bf570d079e3, type: 3}
+  muteButton: {fileID: 0}
 --- !u!114 &9087370765157836005
 MonoBehaviour:
   m_ObjectHideFlags: 0
