@@ -52,15 +52,23 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetButtonDown("Jump") && isGround)
+            Jump();
+        if (Input.GetButtonUp("Jump"))
+            IsFalling();
+
         coinsText.text = CoinNums.ToString();
         health = HealthManagement.health;
     }
 
     void FixedUpdate()
     {
+        if (mybody.velocity.y > 0 && isJumping)
+            JumpMultiplier();
+        if (mybody.velocity.y < 0)
+            FallingWithGravity();
         isGround = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
         CharacterMovementKeyBoard();
-        Jump();
         AnimateCharacter();
     }
 
@@ -144,31 +152,31 @@ public class Character : MonoBehaviour
     /// </summary>
     void Jump()
     {
-        //Mathf.Abs(mybody.velocity.y) < 0.001f this is used to get the absolute velocity value of vector y. It's the same with isGround check.
-        if (Input.GetButtonDown("Jump") && isGround)
-        {
-            mybody.velocity = new Vector2(mybody.velocity.x, jumpForce);
-            CreateDustEffect();
-            SoundManager.instance.JumpSFX();
-            isGround = false;
-            isJumping = true;
-            jumpCounter = 0;
-        }
-        if (Input.GetButtonUp("Jump"))
-        {
+        mybody.velocity = new Vector2(mybody.velocity.x, jumpForce);
+        CreateDustEffect();
+        SoundManager.instance.JumpSFX();
+        isGround = false;
+        isJumping = true;
+        jumpCounter = 0;
+    }
+    
+    void IsFalling()
+    {
+        isJumping = false;
+    }
+    
+    void JumpMultiplier()
+    {
+        jumpCounter += Time.deltaTime;
+        if (jumpCounter > jumpTime)
             isJumping = false;
-        }
-        if (mybody.velocity.y > 0 && isJumping)
-        {
-            jumpCounter += Time.deltaTime;
-            if (jumpCounter > jumpTime)
-                isJumping = false;
-            mybody.velocity += vecGravity * jumpMultiplier * Time.deltaTime;
-        }
-        if (mybody.velocity.y < 0)
-        {
-            mybody.velocity -= vecGravity * fallMultiplier * Time.deltaTime;
-        }
+        mybody.velocity += vecGravity * jumpMultiplier * Time.deltaTime;
+    }
+   
+    void FallingWithGravity()
+    {
+        mybody.velocity -= vecGravity * fallMultiplier * Time.deltaTime;
+
     }
 
     /// <summary>

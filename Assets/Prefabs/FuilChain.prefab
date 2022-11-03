@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5850140119831351239}
   - component: {fileID: 5850140119831351238}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5850140120096652060}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FuilChain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6932102822362836619, guid: 0032390170ec08a44a30abf5b02edd19, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6932102822636107331, guid: 0032390170ec08a44a30abf5b02edd19, type: 3}
       propertyPath: m_Layer
