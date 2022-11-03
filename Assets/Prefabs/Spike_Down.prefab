@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8311458791677339121}
   - component: {fileID: -517496408088741958}
   - component: {fileID: 788313398}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spike_Down
   m_TagString: enemy
   m_Icon: {fileID: 0}
